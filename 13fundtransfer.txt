@@ -1,0 +1,67 @@
+import tkinter as tk
+from tkinter import messagebox
+
+class FundTransferApp:
+    def __init__(self, master):
+        self.master = master
+        self.master.title("Fund Transfer")
+        self.master.geometry("400x300")
+
+        # Title Label
+        self.label_title = tk.Label(master, text="Fund Transfer", font=("Arial", 16))
+        self.label_title.pack(pady=10)
+
+        # Sender Account Number
+        self.label_sender_account = tk.Label(master, text="Sender Account Number:")
+        self.label_sender_account.pack(pady=5)
+        self.entry_sender_account = tk.Entry(master)
+        self.entry_sender_account.pack(pady=5)
+
+        # Recipient Account Number
+        self.label_recipient_account = tk.Label(master, text="Recipient Account Number:")
+        self.label_recipient_account.pack(pady=5)
+        self.entry_recipient_account = tk.Entry(master)
+        self.entry_recipient_account.pack(pady=5)
+
+        # Amount
+        self.label_amount = tk.Label(master, text="Amount to Transfer:")
+        self.label_amount.pack(pady=5)
+        self.entry_amount = tk.Entry(master)
+        self.entry_amount.pack(pady=5)
+
+        # Submit Button
+        self.button_submit = tk.Button(master, text="Transfer Funds", command=self.transfer_funds)
+        self.button_submit.pack(pady=20)
+
+    def transfer_funds(self):
+        sender_account = self.entry_sender_account.get()
+        recipient_account = self.entry_recipient_account.get()
+        amount = self.entry_amount.get()
+
+        # Validate input
+        if not sender_account or not recipient_account or not amount:
+            messagebox.showerror("Error", "Please fill in all fields.")
+            return
+
+        try:
+            amount = float(amount)
+            if amount <= 0:
+                raise ValueError("Amount must be greater than zero.")
+        except ValueError as e:
+            messagebox.showerror("Error", str(e))
+            return
+
+        # Here you would typically call a function to perform the transaction
+        # For this example, we'll just show a success message
+        messagebox.showinfo("Success", f"Successfully transferred ${amount:.2f} from account {sender_account} to account {recipient_account}.")
+        self.clear_fields()
+
+    def clear_fields(self):
+        self.entry_sender_account.delete(0, tk.END)
+        self.entry_recipient_account.delete(0, tk.END)
+        self.entry_amount.delete(0, tk.END)
+
+if __name__ == "__main__":
+    root = tk.Tk()
+    fund_transfer_app = FundTransferApp(root)
+    root.mainloop()

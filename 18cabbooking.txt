@@ -1,0 +1,64 @@
+import tkinter as tk
+from tkinter import messagebox
+
+class CabBookingApp:
+    def __init__(self, master):
+        self.master = master
+        self.master.title("Cab/Auto Booking App")
+        self.master.geometry("400x400")
+
+        # Title Label
+        self.label_title = tk.Label(master, text="Cab/Auto Booking", font=("Arial", 16))
+        self.label_title.pack(pady=10)
+
+        # Pickup Location
+        self.label_pickup = tk.Label(master, text="Pickup Location:")
+        self.label_pickup.pack(pady=5)
+        self.entry_pickup = tk.Entry(master)
+        self.entry_pickup.pack(pady=5)
+
+        # Drop-off Location
+        self.label_dropoff = tk.Label(master, text="Drop-off Location:")
+        self.label_dropoff.pack(pady=5)
+        self.entry_dropoff = tk.Entry(master)
+        self.entry_dropoff.pack(pady=5)
+
+        # Vehicle Type Selection
+        self.label_vehicle = tk.Label(master, text="Select Vehicle Type:")
+        self.label_vehicle.pack(pady=5)
+        self.var_vehicle = tk.StringVar(value="Sedan")
+        vehicle_types = ["Sedan", "SUV", "Auto Rickshaw"]
+        for vehicle in vehicle_types:
+            tk.Radiobutton(master, text=vehicle, variable=self.var_vehicle, value=vehicle).pack(anchor='w')
+
+        # Submit Button
+        self.button_submit = tk.Button(master, text="Book Now", command=self.book_ride)
+        self.button_submit.pack(pady=20)
+
+    def book_ride(self):
+        pickup = self.entry_pickup.get()
+        dropoff = self.entry_dropoff.get()
+        vehicle = self.var_vehicle.get()
+
+        # Simple validation
+        if not pickup or not dropoff:
+            messagebox.showerror("Error", "Please fill in both pickup and drop-off locations.")
+            return
+
+        # Displaying the booking information
+        messagebox.showinfo("Booking Successful", 
+                            f"Pickup Location: {pickup}\nDrop-off Location: {dropoff}\n"
+                            f"Vehicle Type: {vehicle}\nYour ride is being booked!")
+
+        # Optionally, clear the form after submission
+        self.clear_form()
+
+    def clear_form(self):
+        self.entry_pickup.delete(0, tk.END)
+        self.entry_dropoff.delete(0, tk.END)
+        self.var_vehicle.set("Sedan")
+
+if __name__ == "__main__":
+    root = tk.Tk()
+    cab_booking_app = CabBookingApp(root)
+    root.mainloop()

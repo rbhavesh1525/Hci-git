@@ -1,0 +1,35 @@
+import tkinter as tk
+
+class HelpScreen:
+    def __init__(self, master):
+        self.master = master
+        self.master.title("Help Screen")
+        self.master.geometry("400x300")
+        
+        # Title Label
+        self.label_title = tk.Label(master, text="Help & Support", font=("Arial", 16))
+        self.label_title.pack(pady=10)
+
+        # Help Content
+        self.text_help = tk.Text(master, wrap=tk.WORD, height=10, width=50)
+        help_content = (
+            "Welcome to the Help Screen!\n\n"
+            "Here are some tips to help you use the application:\n\n"
+            "1. To register a patient, fill in all the required fields in the form.\n"
+            "2. Ensure that you select a preferred doctor from the list.\n"
+            "3. For any medical history, check the relevant boxes.\n"
+            "4. If you encounter any issues, please contact support.\n\n"
+            "For further assistance, visit our website or contact customer support."
+        )
+        self.text_help.insert(tk.END, help_content)
+        self.text_help.config(state=tk.DISABLED)  # Make the text area read-only
+        self.text_help.pack(pady=10)
+
+        # Close Button
+        self.button_close = tk.Button(master, text="Close", command=self.master.quit)
+        self.button_close.pack(pady=20)
+
+if __name__ == "__main__":
+    root = tk.Tk()
+    help_screen = HelpScreen(root)
+    root.mainloop()

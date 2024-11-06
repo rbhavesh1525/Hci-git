@@ -1,0 +1,37 @@
+import tkinter as tk
+
+class WelcomeScreen:
+    def __init__(self, master):
+        self.master = master
+        self.master.title("Welcome Screen")
+        self.master.geometry("400x300")
+        self.master.configure(bg="#f0f0f0")  # Set background color
+
+        # Title Label
+        self.label_title = tk.Label(master, text="Welcome to Our Application!", font=("Arial", 18), bg="#f0f0f0")
+        self.label_title.pack(pady=20)
+
+        # Description Label
+        self.label_description = tk.Label(master, text="This application helps you manage your tasks effectively.", 
+                                            font=("Arial", 12), bg="#f0f0f0")
+        self.label_description.pack(pady=10)
+
+        # Image (Optional)
+        # You can uncomment the lines below to add an image if you have one.
+        # self.image = tk.PhotoImage(file="welcome_image.png")  # Replace with your image file
+        # self.label_image = tk.Label(master, image=self.image, bg="#f0f0f0")
+        # self.label_image.pack(pady=10)
+
+        # Proceed Button
+        self.button_proceed = tk.Button(master, text="Proceed", command=self.proceed, font=("Arial", 12), bg="#4CAF50", fg="white")
+        self.button_proceed.pack(pady=20)
+
+    def proceed(self):
+        # Here you can define what happens when the user clicks the Proceed button.
+        # For example, you might want to open another window or frame.
+        print("Proceeding to the next screen...")  # Placeholder action
+
+if __name__ == "__main__":
+    root = tk.Tk()
+    welcome_screen = WelcomeScreen(root)
+    root.mainloop()

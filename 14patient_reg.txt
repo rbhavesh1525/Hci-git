@@ -1,0 +1,67 @@
+import tkinter as tk
+from tkinter import messagebox
+
+def submit_form():
+    name = name_entry.get()
+    age = age_entry.get()
+    gender = gender_var.get()
+    contact = contact_entry.get()
+    address = address_entry.get("1.0", tk.END).strip()
+    allergies = allergies_listbox.curselection()
+    allergies_selected = [allergies_listbox.get(i) for i in allergies]
+    
+    if not name or not age or not contact or not address:
+        messagebox.showwarning("Input Error", "Please fill in all fields.")
+        return
+    
+    # Here you can process the data (e.g., save it to a database)
+    messagebox.showinfo("Success", "Patient Registered Successfully!")
+    
+    # Clear the form
+    name_entry.delete(0, tk.END)
+    age_entry.delete(0, tk.END)
+    contact_entry.delete(0, tk.END)
+    address_entry.delete("1.0", tk.END)
+    allergies_listbox.selection_clear(0, tk.END)
+
+# Create the main window
+root = tk.Tk()
+root.title("Patient Registration Form")
+
+# Create and place labels and entries
+tk.Label(root, text="Patient Registration Form", font=("Arial", 16)).grid(row=0, column=0, columnspan=2, pady=10)
+
+tk.Label(root, text="Name:").grid(row=1, column=0, sticky=tk.W, padx=10, pady=5)
+name_entry = tk.Entry(root)
+name_entry.grid(row=1, column=1, padx=10, pady=5)
+
+tk.Label(root, text="Age:").grid(row=2, column=0, sticky=tk.W, padx=10, pady=5)
+age_entry = tk.Entry(root)
+age_entry.grid(row=2, column=1, padx=10, pady=5)
+
+tk.Label(root, text="Gender:").grid(row=3, column=0, sticky=tk.W, padx=10, pady=5)
+gender_var = tk.StringVar(value="Male")
+tk.Radiobutton(root, text="Male", variable=gender_var, value="Male").grid(row=3, column=1, sticky=tk.W)
+tk.Radiobutton(root, text="Female", variable=gender_var, value="Female").grid(row=3, column=1, sticky=tk.E)
+
+tk.Label(root, text="Contact Number:").grid(row=4, column=0, sticky=tk.W, padx=10, pady=5)
+contact_entry = tk.Entry(root)
+contact_entry.grid(row=4, column=1, padx=10, pady=5)
+
+tk.Label(root, text="Address:").grid(row=5, column=0, sticky=tk.W, padx=10, pady=5)
+address_entry = tk.Text(root, height=4, width=30)
+address_entry.grid(row=5, column=1, padx=10, pady=5)
+
+tk.Label(root, text="Allergies:").grid(row=6, column=0, sticky=tk.W, padx=10, pady=5)
+allergies_listbox = tk.Listbox(root, selectmode=tk.MULTIPLE)
+allergies = ["Peanuts", "Shellfish", "Dairy", "Gluten", "Soy", "Eggs"]
+for allergy in allergies:
+    allergies_listbox.insert(tk.END, allergy)
+allergies_listbox.grid(row=6, column=1, padx=10, pady=5)
+
+# Submit button
+submit_button = tk.Button(root, text="Submit", command=submit_form)
+submit_button.grid(row=7, column=0, columnspan=2, pady=20)
+
+# Start the GUI event loop
+root.mainloop()
